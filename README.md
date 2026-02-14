@@ -8,7 +8,7 @@
 
 ## 平台支持
 
-### 二进制文件
+### 二进制文
 
 | 平台 | 架构 | 文件名 |
 |------|------|--------|
@@ -140,7 +140,7 @@ docker run -d \
 
 ### 1. 启动服务
 
-服务启动后，访问 `http://localhost:58091` 即可打开 Web 界面。
+服务启动后，问 `http://localhost:58091` 即可打开 Web 界面。
 
 ### 2. 登录系统
 
@@ -236,6 +236,21 @@ docker run -d \
   ...
 ```
 
+### 4. 升级或更新失败
+
+如果升级版本后出现异常，可以尝试删除 `data` 目录下的 `mimusic.db` 数据库文件，然后重新启动服务：
+
+```bash
+# 停止服务
+# 删除数据库文件
+rm data/mimusic.db
+
+# 重新启动服务
+./mimusic-linux-amd64
+```
+
+**注意**：删除数据库文件会丢失所有用户数据和配置，需要重新扫描音乐文件。
+
 ## 系统要求
 
 - **操作系统**: Linux / macOS / Windows
@@ -246,4 +261,3 @@ docker run -d \
 
 - **GitHub**: https://github.com/mimusic-org/mimusic
 - **Issues**: https://github.com/mimusic-org/mimusic/issues
-
