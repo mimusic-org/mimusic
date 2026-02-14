@@ -70,16 +70,6 @@ jobs:
           npm run docs:build
           npm run docs:build
 
-      - uses: pdm-project/setup-pdm@v3
-
-      - name: pdm
-        run: pdm install --prod --frozen-lockfile
-
-      - name: generate versions.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pdm run get_release.py
-
       - name: Check for changes
         id: check_changes
         run: |
