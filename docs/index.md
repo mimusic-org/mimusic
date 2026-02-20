@@ -12,7 +12,7 @@ hero:
       link: /issues/index
     - theme: alt
       text: FAQ
-      link: /issues/99
+      link: /issues/1
     - theme: alt
       text: GitHub
       link: https://github.com/mimusic-org/mimusic
