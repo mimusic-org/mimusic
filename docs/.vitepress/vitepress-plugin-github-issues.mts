@@ -180,6 +180,11 @@ export default function GitHubIssuesPlugin(options: GitHubIssuesPluginOptions): 
           console.log(`Created docs directory: ${docsDir}`);
         }
 
+        // 拷贝 ../README.md 文件到当前目录
+        const readmeSource = path.join(process.cwd(), '../README.md');
+        const readmeDestination = path.join(docsDir, 'index.md');
+        copyFile(readmeSource, readmeDestination);
+
         for (const issue of issues) {
           // 仅处理包含 "文档" 标签的 issue
           const hasDocumentLabel = issue.labels.some(label => label.name === '文档');
