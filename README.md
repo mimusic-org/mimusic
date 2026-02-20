@@ -1,6 +1,6 @@
-# mimusic
+# MiMusic 快速使用指南
 
-自己的音乐服务器
+本文档介绍如何快速下载和使用 MiMusic 发布版本。
 
 ## 下载地址
 
@@ -8,25 +8,25 @@
 
 ## 平台支持
 
-### 二进制文
+### 二进制文件
 
-| 平台 | 架构 | 文件名 |
+| 平台 | 架构 | 下载链接 |
 |------|------|--------|
-| Linux | x86_64 | `mimusic-linux-amd64` |
-| Linux | ARM64 | `mimusic-linux-arm64` |
-| Linux | ARMv7 | `mimusic-linux-armv7` |
-| macOS | x86_64 (Intel) | `mimusic-darwin-amd64` |
-| macOS | ARM64 (Apple Silicon) | `mimusic-darwin-arm64` |
-| Windows | x86_64 | `mimusic-windows-amd64.exe` |
-| Windows | ARM64 | `mimusic-windows-arm64.exe` |
+| Linux | x86_64 | [mimusic-linux-amd64](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-amd64) |
+| Linux | ARM64 | [mimusic-linux-arm64](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-arm64) |
+| Linux | ARMv7 | [mimusic-linux-armv7](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-armv7) |
+| macOS | x86_64 (Intel) | [mimusic-darwin-amd64](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-darwin-amd64) |
+| macOS | ARM64 (Apple Silicon) | [mimusic-darwin-arm64](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-darwin-arm64) |
+| Windows | x86_64 | [mimusic-windows-amd64.exe](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-windows-amd64.exe) |
+| Windows | ARM64 | [mimusic-windows-arm64.exe](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-windows-arm64.exe) |
 
 ### Docker 镜像
 
-| 平台 | 文件名 |
+| 平台 | 下载链接 |
 |------|--------|
-| Linux x86_64 | `mimusic-docker-linux-amd64.tar` |
-| Linux ARM64 | `mimusic-docker-linux-arm64.tar` |
-| Linux ARMv7 | `mimusic-docker-linux-armv7.tar` |
+| Linux x86_64 | [mimusic-docker-linux-amd64.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-amd64.tar) |
+| Linux ARM64 | [mimusic-docker-linux-arm64.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-arm64.tar) |
+| Linux ARMv7 | [mimusic-docker-linux-armv7.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-armv7.tar) |
 
 ## 快速开始
 
@@ -124,23 +124,28 @@ docker run -d \
 
 ```bash
 # 查看帮助
-./mimusic-linux-amd64 --help
+./mimusic-linux-amd64 -help
 
 # 指定端口
-./mimusic-linux-amd64 --port 8080
+./mimusic-linux-amd64 -port 8080
 
-# 指定音乐目录
-./mimusic-linux-amd64 --music-dir /path/to/music
+# 指定管理员用户名
+./mimusic-linux-amd64 -username admin
 
-# 指定数据目录
-./mimusic-linux-amd64 --data-dir /path/to/data
+# 指定管理员密码
+./mimusic-linux-amd64 -password your_password
+
+# 指定数据库文件路径
+./mimusic-linux-amd64 -db data/mimusic.db
 ```
+
+**注意**：MiMusic 使用单横杠参数（如 `-help`），不支持双横杠参数（如 `--help`）。
 
 ## 使用流程
 
 ### 1. 启动服务
 
-服务启动后，问 `http://localhost:58091` 即可打开 Web 界面。
+服务启动后，访问 `http://localhost:58091` 即可打开 Web 界面。
 
 ### 2. 登录系统
 
@@ -189,10 +194,10 @@ curl -X GET http://localhost:58091/api/v1/playlists \
 ## 版本检查
 
 ```bash
-# 查看当前版本
-./mimusic-linux-amd64 --version
+# 查看帮助信息（MiMusic 不支持 --version 参数）
+./mimusic-linux-amd64 -help
 
-# 或通过 API 检查
+# 或通过 API 检查版本
 curl http://localhost:58091/api/v1/version
 ```
 
@@ -214,7 +219,7 @@ sha256sum -c checksums.txt
 
 修改端口：
 ```bash
-./mimusic-linux-amd64 --port 8080
+./mimusic-linux-amd64 -port 8080
 ```
 
 或使用环境变量：
@@ -261,3 +266,4 @@ rm data/mimusic.db
 
 - **GitHub**: https://github.com/mimusic-org/mimusic
 - **Issues**: https://github.com/mimusic-org/mimusic/issues
+
