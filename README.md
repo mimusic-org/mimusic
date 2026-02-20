@@ -1,7 +1,8 @@
 # 🎵 MiMusic 快速使用指南
 
 [![GitHub License](https://img.shields.io/github/license/mimusic-org/mimusic)](https://github.com/mimusic-org/mimusic)
-[![Docker Image Version](https://img.sh.shields.io/docker/v/hanxi/mimusic?sort=semver&label=docker%20image)](https://hub.docker.com/r/hanxi/mimusic)
+[![Docker Image Version](https://img.shields.io/docker/v/hanxi/mimusic?sort=semver&label=docker%20image)](https://hub.docker.com/r/hanxi/mimusic)
+[![Docker Image Size](https://img.shields.io/docker/image-size/hanxi/mimusic)](https://hub.docker.com/r/hanxi/mimusic)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hanxi/mimusic)](https://hub.docker.com/r/hanxi/mimusic)
 [![GitHub Release](https://img.shields.io/github/v/release/mimusic-org/mimusic)](https://github.com/mimusic-org/mimusic/releases)
 [![Visitors](https://api.visitorbadge.io/api/daily?path=mimusic-org%2Fmimusic&label=daily%20visitor&countColor=%232ccce4&style=flat)](https://visitorbadge.io/status?path=mimusic-org%2Fmimusic)
