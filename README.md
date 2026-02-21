@@ -242,6 +242,7 @@ sha256sum -c checksums.txt
 - **GitHub**: [mimusic-org/mimusic](https://github.com/mimusic-org/mimusic)
 - **Issues**: [问题与反馈](https://github.com/mimusic-org/mimusic/issues)
 - 💬 加入微信群交流：[微信群二维码](https://github.com/mimusic-org/mimusic/issues/2)
+- 🐧 QQ群: 979995241
 
 ## 💖 支持项目
 
