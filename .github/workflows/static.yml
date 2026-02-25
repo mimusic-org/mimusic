@@ -13,6 +13,8 @@ on:
   # Runs on issue events
   issues:
     types: [opened, edited, reopened]  # Specify events you're interested in
+  issue_comment:
+    types: [created, deleted, edited]
 
   release:
     types:
