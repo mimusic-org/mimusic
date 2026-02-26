@@ -14,8 +14,8 @@ hero:
       text: FAQ
       link: /issues/1
     - theme: alt
-      text: GitHub
-      link: https://github.com/mimusic-org/mimusic
+      text: 插件
+      link: /issues/4
 
 features:
   - title: 免费使用
