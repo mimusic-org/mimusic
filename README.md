@@ -2,7 +2,6 @@
 
 [![GitHub License](https://img.shields.io/github/license/mimusic-org/mimusic)](https://github.com/mimusic-org/mimusic)
 [![Docker Image Version](https://img.shields.io/docker/v/hanxi/mimusic?sort=semver&label=docker%20image)](https://hub.docker.com/r/hanxi/mimusic)
-[![Docker Image Size](https://img.shields.io/docker/image-size/hanxi/mimusic)](https://hub.docker.com/r/hanxi/mimusic)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hanxi/mimusic)](https://hub.docker.com/r/hanxi/mimusic)
 [![GitHub Release](https://img.shields.io/github/v/release/mimusic-org/mimusic)](https://github.com/mimusic-org/mimusic/releases)
 [![Visitors](https://api.visitorbadge.io/api/daily?path=mimusic-org%2Fmimusic&label=daily%20visitor&countColor=%232ccce4&style=flat)](https://visitorbadge.io/status?path=mimusic-org%2Fmimusic)
@@ -20,9 +19,38 @@
 </p>
 
 
+## 📋 版本说明
+
+MiMusic 提供两种版本，满足不同使用场景：
+
+| 版本 | 后缀 | 说明 | 适用场景 |
+|------|------|------|----------|
+| 🌟 **完整版** | `-full` | 包含 Web 前端，开箱即用 | 推荐初次使用，访问服务地址即可看到 Web 界面 |
+| 📦 **精简版** | 无后缀 | 不包含 Web 前端，体积更小 | 配合 Flutter 桌面/移动客户端，或前后端分离部署 |
+
+> 💡 **推荐**：初次使用建议下载 **完整版（-full）**，开箱即用，无需额外配置前端。
+
 ## 🖥️ 平台支持
 
 ### 📦 二进制文件
+
+#### 🌟 完整版（推荐）
+
+包含 Web 前端，开箱即用：
+
+| 平台 | 架构 | 下载链接 |
+|------|------|--------|
+| 🐧 Linux | x86_64 | [mimusic-linux-amd64-full](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-amd64-full) |
+| 🐧 Linux | ARM64 | [mimusic-linux-arm64-full](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-arm64-full) |
+| 🐧 Linux | ARMv7 | [mimusic-linux-armv7-full](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-armv7-full) |
+| 🍎 macOS | x86_64 (Intel) | [mimusic-darwin-amd64-full](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-darwin-amd64-full) |
+| 🍎 macOS | ARM64 (Apple Silicon) | [mimusic-darwin-arm64-full](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-darwin-arm64-full) |
+| 🪟 Windows | x86_64 | [mimusic-windows-amd64-full.exe](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-windows-amd64-full.exe) |
+| 🪟 Windows | ARM64 | [mimusic-windows-arm64-full.exe](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-windows-arm64-full.exe) |
+
+#### 📦 精简版（Lite）
+
+不包含 Web 前端，体积更小：
 
 | 平台 | 架构 | 下载链接 |
 |------|------|--------|
@@ -35,6 +63,16 @@
 | 🪟 Windows | ARM64 | [mimusic-windows-arm64.exe](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-windows-arm64.exe) |
 
 ### 🐳 Docker 镜像
+
+#### 🌟 完整版（推荐）
+
+| 平台 | 下载链接 |
+|------|--------|
+| 🐧 Linux x86_64 | [mimusic-docker-linux-amd64-full.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-amd64-full.tar) |
+| 🐧 Linux ARM64 | [mimusic-docker-linux-arm64-full.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-arm64-full.tar) |
+| 🐧 Linux ARMv7 | [mimusic-docker-linux-armv7-full.tar](https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-armv7-full.tar) |
+
+#### 📦 精简版（Lite）
 
 | 平台 | 下载链接 |
 |------|--------|
@@ -49,32 +87,32 @@
 #### 🐧 Linux / 🍎 macOS
 
 ```bash
-# 1️⃣ 下载对应平台的二进制文件
-# 例如 Linux x86_64:
-wget https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-amd64
+# 1️⃣ 下载对应平台的二进制文件（推荐完整版）
+# 例如 Linux x86_64 完整版:
+wget https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-linux-amd64-full
 
 # 2️⃣ 添加执行权限
-chmod +x mimusic-linux-amd64
+chmod +x mimusic-linux-amd64-full
 
 # 3️⃣ 创建必要目录
 mkdir -p music data
 
 # 4️⃣ 运行
-./mimusic-linux-amd64
+./mimusic-linux-amd64-full
 ```
 
 #### 🪟 Windows
 
 ```powershell
-# 1️⃣ 下载对应平台的二进制文件
-# 例如 Windows x86_64: mimusic-windows-amd64.exe
+# 1️⃣ 下载对应平台的二进制文件（推荐完整版）
+# 例如 Windows x86_64 完整版: mimusic-windows-amd64-full.exe
 
 # 2️⃣ 创建必要目录
 mkdir music
 mkdir data
 
 # 3️⃣ 运行
-.\mimusic-windows-amd64.exe
+.\mimusic-windows-amd64-full.exe
 ```
 
 ### 🐳 方式二：Docker 部署
@@ -82,13 +120,17 @@ mkdir data
 #### 🌐 从 Docker Hub 拉取（推荐）
 
 ```bash
-# 拉取镜像
+# 🌟 拉取完整版镜像（推荐，包含 Web 前端）
+docker pull hanxi/mimusic:full
+
+# 或指定版本的完整版
+docker pull hanxi/mimusic:1.0.0-full  # 替换为具体版本号
+
+# 📦 拉取精简版镜像（不含 Web 前端）
 docker pull hanxi/mimusic:latest
+# 或 docker pull hanxi/mimusic:1.0.0
 
-# 或指定版本
-docker pull hanxi/mimusic:1.0.0  # 替换为具体版本号
-
-# 运行容器
+# 运行容器（以完整版为例）
 docker run -d \
   --name mimusic \
   -p 58091:58091 \
@@ -96,17 +138,17 @@ docker run -d \
   -v /path/to/data:/app/data \
   -e ADMIN_USERNAME=admin \
   -e ADMIN_PASSWORD=your_secure_password \
-  hanxi/mimusic:latest
+  hanxi/mimusic:full
 ```
 
 #### 📥 从 Release 导入镜像
 
 ```bash
-# 1️⃣ 下载对应平台的 Docker 镜像 tar 文件
-wget https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-amd64.tar
+# 1️⃣ 下载对应平台的 Docker 镜像 tar 文件（推荐完整版）
+wget https://github.com/mimusic-org/mimusic/releases/latest/download/mimusic-docker-linux-amd64-full.tar
 
 # 2️⃣ 导入镜像
-docker load -i mimusic-docker-linux-amd64.tar
+docker load -i mimusic-docker-linux-amd64-full.tar
 
 # 3️⃣ 查看导入的镜像
 docker images | grep mimusic
@@ -119,7 +161,7 @@ docker run -d \
   -v /path/to/data:/app/data \
   -e ADMIN_USERNAME=admin \
   -e ADMIN_PASSWORD=your_secure_password \
-  hanxi/mimusic:latest
+  hanxi/mimusic:full
 ```
 
 ## ⚙️ 配置说明
@@ -130,7 +172,7 @@ docker run -d \
 |--------|------|--------|
 | `ADMIN_USERNAME` | 👤 管理员用户名 | admin |
 | `ADMIN_PASSWORD` | 🔐 管理员密码 | admin |
-| `PORT` | 🔌 服务端口 | 58091 |
+| `LISTEN_PORT` | 🔌 服务端口 | 58091 |
 | `MUSIC_DIR` | 🎵 音乐文件目录 | ./music |
 | `DATA_DIR` | 💾 数据存储目录 | ./data |
 
@@ -159,7 +201,7 @@ docker run -d \
 
 ### 1️⃣ 启动服务
 
-服务启动后，访问 `http://localhost:58091` 即可打开 Web 界面。
+服务启动后，访问 `http://localhost:58091` 即可打开 Web 界面（仅完整版支持，精简版需单独部署前端或使用 Flutter 客户端）。
 
 ### 2️⃣ 登录系统
 
@@ -208,7 +250,10 @@ curl -X GET http://localhost:58091/api/v1/playlists \
 ## 📌 版本检查
 
 ```bash
-# 查看帮助信息（MiMusic 不支持 --version 参数）
+# 查看版本信息
+./mimusic-linux-amd64 -version
+
+# 查看帮助信息
 ./mimusic-linux-amd64 -help
 
 # 或通过 API 检查版本
@@ -242,7 +287,6 @@ sha256sum -c checksums.txt
 - **GitHub**: [mimusic-org/mimusic](https://github.com/mimusic-org/mimusic)
 - **Issues**: [问题与反馈](https://github.com/mimusic-org/mimusic/issues)
 - 💬 加入微信群交流：[微信群二维码](https://github.com/mimusic-org/mimusic/issues/2)
-- 🐧 QQ群: 979995241
 
 ## 💖 支持项目
 
