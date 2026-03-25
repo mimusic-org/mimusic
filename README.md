@@ -82,6 +82,14 @@ MiMusic 提供两种版本，满足不同使用场景：
 
 ## 🚀 快速开始
 
+### 📱 Flutter 客户端
+
+除了 Web 界面，MiMusic 还提供了功能更强大的跨平台 Flutter 客户端，支持 iOS、Android、macOS、Windows、Linux 和 Web。
+
+🔗 **GitHub 仓库**: [https://github.com/mimusic-org/frontend](https://github.com/mimusic-org/frontend)
+
+从 [GitHub Releases](https://github.com/mimusic-org/frontend/releases/latest) 下载对应平台的客户端。
+
 ### 📦 方式一：直接运行二进制文件
 
 #### 🐧 Linux / 🍎 macOS
@@ -281,6 +289,13 @@ sha256sum -c checksums.txt
 - **操作系统**: 🐧 Linux / 🍎 macOS / 🪟 Windows
 - **架构**: x86_64 / ARM64 / ARMv7
 - **可选依赖**: 🔧 ffprobe（用于获取音频技术参数，不安装也可正常运行）
+
+## 🔌 插件开发
+
+MiMusic 支持通过插件扩展功能。如需开发插件，请参考以下资源：
+
+- **插件协议库**: [mimusic-org/plugin](https://github.com/mimusic-org/plugin) - 开发 MiMusic 插件时使用的协议库
+- **插件示例**: [mimusic-org/mimusic-plugin-example](https://github.com/mimusic-org/mimusic-plugin-example) - 官方插件集合（小米设备、音乐标签等）
 
 ## 🛠️ 技术支持
 
