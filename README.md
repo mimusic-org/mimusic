@@ -297,6 +297,13 @@ MiMusic 支持通过插件扩展功能。如需开发插件，请参考以下资
 - **插件协议库**: [mimusic-org/plugin](https://github.com/mimusic-org/plugin) - 开发 MiMusic 插件时使用的协议库
 - **插件示例**: [mimusic-org/mimusic-plugin-example](https://github.com/mimusic-org/mimusic-plugin-example) - 官方插件集合（小米设备、音乐标签等）
 
+## 📖 API 文档
+
+完整的 API 文档（Swagger/OpenAPI 格式）可在以下地址查看：
+
+- **Swagger API 文档**: [swagger.json](https://github.com/mimusic-org/mimusic/blob/main/docs/swagger.json)
+- **Swagger UI 查看**: 启动服务后访问 [https://petstore.swagger.io](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mimusic-org/mimusic/refs/heads/main/docs/swagger.json)
+
 ## 🛠️ 技术支持
 
 - **GitHub**: [mimusic-org/mimusic](https://github.com/mimusic-org/mimusic)
