@@ -16,6 +16,7 @@
   <a href="https://github.com/mimusic-org/mimusic/releases">📥 下载</a> •
   <a href="https://github.com/mimusic-org/mimusic/issues">💬 问题反馈</a> •
   <a href="https://github.com/mimusic-org/mimusic/issues/2">👥 微信群</a>
+  <a href="https://github.com/mimusic-org/mimusic/issues/6">截图</a>
 </p>
 
 
