@@ -35,7 +35,7 @@ export default async ({ mode }) => {
       lineNumbers: false, // 关闭代码块行号显示
       // 自定义 markdown-it 插件
       config: (md) => {
-        md.use(taskLists, { enabled: true })
+        md.use(taskLists)
         md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
           const aIndex = tokens[idx].attrIndex('target');
           if (aIndex < 0) {
