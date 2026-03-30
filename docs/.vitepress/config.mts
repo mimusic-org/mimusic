@@ -1,6 +1,7 @@
 import { loadEnv, defineConfig } from 'vitepress'
 import AutoSidebar from 'vite-plugin-vitepress-auto-sidebar';
 import GitHubIssuesPlugin from './vitepress-plugin-github-issues.mts';
+import taskLists from 'markdown-it-task-lists'
 
 export default async ({ mode }) => {
   const env = loadEnv(mode || '', process.cwd())
@@ -34,6 +35,7 @@ export default async ({ mode }) => {
       lineNumbers: false, // 关闭代码块行号显示
       // 自定义 markdown-it 插件
       config: (md) => {
+        md.use(taskLists, { enabled: true })
         md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
           const aIndex = tokens[idx].attrIndex('target');
           if (aIndex < 0) {
