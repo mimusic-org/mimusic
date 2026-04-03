@@ -11,8 +11,8 @@ hero:
       text: 快速开始
       link: /issues/index
     - theme: alt
-      text: FAQ
-      link: /issues/1
+      text: 客户端
+      link: /issues/8
     - theme: alt
       text: 插件
       link: /issues/4
