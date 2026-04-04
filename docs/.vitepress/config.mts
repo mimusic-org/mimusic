@@ -11,8 +11,7 @@ export default async ({ mode }) => {
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-        { text: 'Guide', link: '/issues' },
-        { text: 'Console', link: 'https://consolemimusic.hanxi.cc' },
+        { text: '演示站', link: 'https://examplemimusic.hanxi.cc' },
       ],
 
       socialLinks: [
