@@ -18,7 +18,7 @@
   <a href="https://examplemimusic.hanxi.cc">🌐 在线演示（账号/密码：admin）</a> •
   <a href="https://github.com/mimusic-org/mimusic/issues">💬 问题反馈</a> •
   <a href="https://github.com/mimusic-org/mimusic/issues/2">👥 微信群</a> •
-  <a href="https://github.com/mimusic-org/mimusic/issues/6">截图</a>
+  <a href="https://github.com/mimusic-org/mimusic/issues/6">📸 截图</a>
 </p>
 
 
