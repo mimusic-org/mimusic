@@ -7,10 +7,15 @@ export default async ({ mode }) => {
   const env = loadEnv(mode || '', process.cwd())
   return defineConfig({
     title: "MiMusic",
-    description: "MiMusic doc",
+    description: "MiMusic - 自托管个人音乐服务器，支持 WASM 插件扩展，跨平台 Flutter 客户端",
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
+        { text: '快速开始', link: '/issues/index' },
+        { text: '客户端', link: '/issues/8' },
+        { text: '插件', link: '/issues/4' },
+        { text: 'FAQ', link: '/issues/1' },
+        { text: 'API 文档', link: 'https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mimusic-org/mimusic/refs/heads/main/docs/swagger.json' },
         { text: '演示站', link: 'https://examplemimusic.hanxi.cc' },
       ],
 
@@ -22,11 +27,23 @@ export default async ({ mode }) => {
         message: '非商业化免费使用',
         copyright: `版权所有 © 2025-${new Date().getFullYear()} 涵曦`
       },
+
+      search: {
+        provider: 'local',
+      },
+
+      editLink: {
+        pattern: 'https://github.com/mimusic-org/mimusic/issues',
+        text: '在 GitHub 上提问'
+      },
     },
     sitemap: {
       hostname: 'https://xdocs.hanxi.cc'
     },
     head: [
+      ['meta', { name: 'og:type', content: 'website' }],
+      ['meta', { name: 'og:title', content: 'MiMusic - 自托管个人音乐服务器' }],
+      ['meta', { name: 'og:description', content: '简单、自由、插件化的个人音乐服务器，支持 WASM 插件扩展' }],
       ['script', { defer: true, src: 'https://umami.hanxi.cc/script.js', 'data-website-id': '29cca3f5-e420-432b-adc7-8a1325d31c68' }]
     ],
     lastUpdated: true,
