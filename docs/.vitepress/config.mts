@@ -15,6 +15,7 @@ export default async ({ mode }) => {
         { text: '客户端', link: '/issues/8' },
         { text: '插件', link: '/issues/4' },
         { text: 'FAQ', link: '/issues/1' },
+        { text: '更新日志', link: '/issues/changelog' },
         { text: 'API 文档', link: 'https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mimusic-org/mimusic/refs/heads/main/docs/swagger.json' },
         { text: '演示站', link: 'https://examplemimusic.hanxi.cc' },
       ],

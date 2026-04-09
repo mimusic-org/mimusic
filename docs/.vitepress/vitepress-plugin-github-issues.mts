@@ -185,6 +185,11 @@ export default function GitHubIssuesPlugin(options: GitHubIssuesPluginOptions): 
         const readmeDestination = path.join(docsDir, 'index.md');
         copyFile(readmeSource, readmeDestination);
 
+        // 拷贝 ../CHANGELOG.md 文件到当前目录
+        const changelogSource = path.join(process.cwd(), '../CHANGELOG.md');
+        const changelogDestination = path.join(docsDir, 'changelog.md');
+        copyFile(changelogSource, changelogDestination);
+
         for (const issue of issues) {
           // 仅处理包含 "文档" 标签的 issue
           const hasDocumentLabel = issue.labels.some(label => label.name === '文档');
