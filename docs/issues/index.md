@@ -186,6 +186,44 @@ docker run -d \
   hanxi/mimusic:full
 ```
 
+#### 🐙 Docker Compose 部署（推荐）
+
+使用 Docker Compose 可以更方便地管理容器配置：
+
+```yaml
+version: '3.8'
+
+services:
+  mimusic:
+    image: hanxi/mimusic:full
+    container_name: mimusic
+    restart: always
+    ports:
+      - "58091:58091"
+    volumes:
+      - /path/to/music:/app/music
+      - /path/to/data:/app/data
+    environment:
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=your_secure_password
+      - LISTEN_PORT=58091
+      - MUSIC_DIR=/app/music
+      - DATA_DIR=/app/data
+```
+
+将上述内容保存为 `docker-compose.yml` 文件，然后运行：
+
+```bash
+# 启动服务
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f
+
+# 停止服务
+docker-compose down
+```
+
 ## ⚙️ 配置说明
 
 ### 🌍 环境变量
