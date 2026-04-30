@@ -1,3 +1,68 @@
+## [1.3.35] - 2026-04-29
+
+### 🔧 Chores
+
+- `d72e680` release version 1.3.35
+
+## [1.3.34] - 2026-04-27
+
+### 🔧 Chores
+
+- `761c5a1` release version 1.3.34
+
+## [1.3.33] - 2026-04-26
+
+### 🔧 Chores
+
+- `b616fd7` release version 1.3.33
+
+## [1.3.32] - 2026-04-26
+
+### 🔧 Chores
+
+- `04a3278` release version 1.3.32
+
+## [1.3.31] - 2026-04-25
+
+### 🔧 Chores
+
+- `430e88d` release version 1.3.31
+
+## [1.3.30] - 2026-04-25
+
+### 🐛 Bug Fixes
+
+- `b074f73` 兼容 J3455 CPU
+
+### 🔧 Chores
+
+- `973edd1` release version 1.3.30
+
+## [1.3.29] - 2026-04-20
+
+### ✨ Features
+
+- `304270f` 插件支持更新
+- `fa7e192` 插件支持更新
+
+### 🐛 Bug Fixes
+
+- `60202c9` 修复部分洛雪音源无法使用问题
+
+### 🔧 Chores
+
+- `1a41ee7` release version 1.3.29
+
+## [1.3.28] - 2026-04-20
+
+### ✨ Features
+
+- `27d8ca0` 新增排除目录设置
+
+### 🔧 Chores
+
+- `04bae3b` release version 1.3.28
+
 ## [1.3.24] - 2026-04-19
 
 ### 🔧 Chores
