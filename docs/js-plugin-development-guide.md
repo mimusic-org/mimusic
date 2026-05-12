@@ -162,7 +162,7 @@ static/              # 静态资源目录（可选）
 - 仅允许小写字母、数字和连字符
 - 必须以小写字母开头
 - 正则：`^[a-z][a-z0-9-]*$`
-- 示例：`mimusic-jsplugin-example`、`music-sync`、`lx-source`
+- 示例：`example-basic`、`music-sync`、`lx-source`
 
 ---
 
@@ -732,4 +732,4 @@ function useTranslation(text) {
 
 ## 附录：完整示例
 
-参见 `jsplugins/mimusic-jsplugin-example/` 目录，包含完整的示例插件代码。
+参见 [plugin-toolchain/examples/basic](https://github.com/mimusic-org/plugin-toolchain/tree/main/examples/basic) 目录，包含基于官方工具链的完整示例插件代码。
