@@ -4,12 +4,12 @@
   },
   "scripts": {
     "sync": "node ../scripts/sync-docs.mjs",
-    "docs:dev": "npm run sync && vitepress dev --host=0.0.0.0 --port=3030",
-    "docs:build": "npm run sync && vitepress build",
+    "fetch-issues": "node ../scripts/fetch-issues.mjs",
+    "docs:dev": "npm run sync && npm run fetch-issues && vitepress dev --host=0.0.0.0 --port=3030",
+    "docs:build": "npm run sync && npm run fetch-issues && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
-    "axios": "^1.7.9",
     "markdown-it-task-lists": "^2.1.1",
     "vite-plugin-vitepress-auto-sidebar": "^1.7.0"
   }

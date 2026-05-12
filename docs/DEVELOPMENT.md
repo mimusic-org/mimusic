@@ -10,7 +10,7 @@ npm install
 npm run docs:dev
 ```
 
-默认监听 `http://localhost:3030`。`docs:dev` 会先执行 `sync` 把仓库根的 `README.md`、`CHANGELOG.md` 同步到 `docs/quick-start.md`、`docs/changelog.md`。
+默认监听 `http://localhost:3030`。`docs:dev` 会先执行 `sync`（把仓库根 `README.md` / `CHANGELOG.md` 同步为 `docs/quick-start.md` / `docs/changelog.md`）和 `fetch-issues`（从 GitHub 拉取带「文档」标签的 issues 生成 `docs/issues/*.md`），再启动 VitePress。
 
 ## 目录分类
 
@@ -30,8 +30,8 @@ npm run docs:dev
 
 ## 同步脚本
 
-`scripts/sync-docs.mjs` 负责把仓库根 Markdown 拷贝到 `docs/`，需要新增同步项时在脚本顶部 `syncItems` 数组追加一行即可。
+- `scripts/sync-docs.mjs`：仓库根 Markdown → `docs/`。新增同步项在 `syncItems` 数组追加一行即可。
+- `scripts/fetch-issues.mjs`：调用 GitHub API 抓取带「文档」标签的 issues，写入 `docs/issues/*.md`。依赖环境变量 `VITE_GITHUB_ISSUES_TOKEN`（CI 中由 secrets 注入）。本地若未设置该变量，脚本会清空 `docs/issues/` 后直接跳过，站点仍可构建但 issues 页面为空。
 
-## GitHub issues 抓取
+两个脚本都由 `docs/package.json` 串联到 `docs:dev` / `docs:build` 里，必须在 `vitepress build` **之前**执行，否则 VitePress 扫描不到新生成的页面。
 
-`docs/.vitepress/vitepress-plugin-github-issues.mts` 在构建时从 GitHub API 拉取带「文档」标签的 issues 生成 `docs/issues/*.md`。需要 `VITE_GITHUB_ISSUES_TOKEN` 环境变量，本地构建若无此变量会静默失败（站点仍可构建，但 issues 页面为空）。

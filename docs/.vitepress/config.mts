@@ -1,10 +1,8 @@
-import { loadEnv, defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress'
 import AutoSidebar from 'vite-plugin-vitepress-auto-sidebar';
-import GitHubIssuesPlugin from './vitepress-plugin-github-issues.mts';
 import taskLists from 'markdown-it-task-lists'
 
-export default async ({ mode }) => {
-  const env = loadEnv(mode || '', process.cwd())
+export default async () => {
   return defineConfig({
     title: "MiMusic",
     description: "MiMusic - 自托管个人音乐服务器，支持 WASM 插件扩展，跨平台 Flutter 客户端",
@@ -71,17 +69,6 @@ export default async ({ mode }) => {
           path: '.',
           collapsed: true,
           titleFromFile: true,
-        }),
-        GitHubIssuesPlugin({
-          repo: 'mimusic-org/mimusic',
-          token: env.VITE_GITHUB_ISSUES_TOKEN,
-          replaceRules: [
-            {
-              baseUrl: 'https://github.com/mimusic-org/mimusic/issues',
-              targetUrl: '/issues',
-            },
-          ],
-          githubProxy: 'https://gproxy.hanxi.cc/proxy',
         }),
       ],
     }
