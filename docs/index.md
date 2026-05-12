@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /issues/index
+      link: /quick-start
     - theme: alt
       text: 客户端下载
       link: /issues/8

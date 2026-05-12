@@ -180,14 +180,14 @@ export default function GitHubIssuesPlugin(options: GitHubIssuesPluginOptions): 
           console.log(`Created docs directory: ${docsDir}`);
         }
 
-        // 拷贝 ../README.md 文件到当前目录
+        // 拷贝 ../README.md 文件到 docs 目录
         const readmeSource = path.join(process.cwd(), '../README.md');
-        const readmeDestination = path.join(docsDir, 'index.md');
+        const readmeDestination = path.join(docsDir, '../quick-start.md');
         copyFile(readmeSource, readmeDestination);
 
-        // 拷贝 ../CHANGELOG.md 文件到当前目录
+        // 拷贝 ../CHANGELOG.md 文件到 docs 目录
         const changelogSource = path.join(process.cwd(), '../CHANGELOG.md');
-        const changelogDestination = path.join(docsDir, 'changelog.md');
+        const changelogDestination = path.join(docsDir, '../changelog.md');
         copyFile(changelogSource, changelogDestination);
 
         for (const issue of issues) {

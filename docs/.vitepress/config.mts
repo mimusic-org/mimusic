@@ -11,11 +11,11 @@ export default async ({ mode }) => {
     themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-        { text: '快速开始', link: '/issues/index' },
+        { text: '快速开始', link: '/quick-start' },
         { text: '客户端', link: '/issues/8' },
         { text: '插件', link: '/issues/4' },
         { text: 'FAQ', link: '/issues/1' },
-        { text: '更新日志', link: '/issues/changelog' },
+        { text: '更新日志', link: '/changelog' },
         { text: 'API 文档', link: 'https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mimusic-org/mimusic/refs/heads/main/docs/swagger.json' },
         { text: '演示站', link: 'https://examplemimusic.hanxi.cc' },
       ],
