@@ -7,6 +7,7 @@ on:
     branches: ["main"]
     paths:
       - 'docs/**'
+      - 'scripts/**'
       - 'README.md'
       - 'CHANGELOG.md'
       - '.github/workflows/static.yml'
@@ -68,30 +69,7 @@ jobs:
         env:
           VITE_GITHUB_ISSUES_TOKEN: ${{ secrets.VITE_GITHUB_ISSUES_TOKEN }}
         working-directory: ./docs  # 指定工作目录为 docs
-        run: | # 有点小问题，得执行2次
-          npm run docs:build
-          npm run docs:build
-
-      - name: Check for changes
-        id: check_changes
-        run: |
-          if [ -n "$(git diff docs)" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-        continue-on-error: true
-
-      # Optionally, customize the user name and commit message, and can add an email as well such as Github Actions' email
-      - name: Set up Git and Commit Changes
-        run: |
-          if [ "${{ steps.check_changes.outputs.changed }}" == "true" ]; then
-            git config --local user.name "Issues Docs [BOT]"
-            git config --local user.email "github-actions[bot]@users.noreply.github.com"
-            git add .
-            git commit -m "Auto-Generate docs 🤖"
-            git push
-          fi
+        run: npm run docs:build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

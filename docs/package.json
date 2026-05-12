@@ -3,8 +3,9 @@
     "vitepress": "^1.5.0"
   },
   "scripts": {
-    "docs:dev": "vitepress dev --host=0.0.0.0 --port=3030",
-    "docs:build": "vitepress build",
+    "sync": "node ../scripts/sync-docs.mjs",
+    "docs:dev": "npm run sync && vitepress dev --host=0.0.0.0 --port=3030",
+    "docs:build": "npm run sync && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
