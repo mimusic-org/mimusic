@@ -45,64 +45,77 @@ Manager（管理器）
 
 ## 2. 快速开始
 
-5 分钟创建你的第一个 JS 插件。
+推荐使用官方工具链 [mimusic-plugin-toolchain](https://github.com/mimusic-org/plugin-toolchain)，5 分钟创建、构建并上传你的第一个 JS 插件。
 
-### Step 1: 创建目录结构
+### Step 1: 用脚手架创建项目
+
+```bash
+pnpm create mimusic-plugin my-plugin
+# 或 npm create mimusic-plugin my-plugin
+cd my-plugin
+pnpm install
+```
+
+脚手架会交互式询问插件 `name` / `entryPath` / `description` / `author` / `permissions`，并生成如下结构：
 
 ```
 my-plugin/
-├── plugin.json    # 插件清单（必须）
-├── main.js        # 入口文件（必须）
-└── static/        # 静态资源（可选）
+├── plugin.json        # 插件清单（entryHash / zipHash 由 builder 生成）
+├── package.json       # npm 依赖（@mimusic/plugin-sdk / @mimusic/plugin-builder）
+├── tsconfig.json
+├── src/
+│   └── main.ts        # TypeScript 源码入口
+└── static/            # 静态资源
     └── index.html
 ```
 
-### Step 2: 编写 plugin.json
+### Step 2: 编写业务逻辑
 
-```json
-{
-  "name": "My Plugin",
-  "version": "1.0.0",
-  "description": "我的第一个 JS 插件",
-  "author": "Your Name",
-  "entryPath": "my-plugin",
-  "main": "main.js",
-  "permissions": ["http", "storage"]
-}
+`src/main.ts` 使用 `@mimusic/plugin-sdk` 提供的全局类型与 helper：
+
+```typescript
+/// <reference types="@mimusic/plugin-sdk" />
+import { jsonResponse, createRouter } from '@mimusic/plugin-sdk';
+
+const router = createRouter();
+
+router.get('/hello', (req) => jsonResponse({ message: 'Hello!', query: req.query }));
+
+router.get('/songs', (req) => {
+  const songs = mimusic.songs.list({ limit: 10 });
+  return jsonResponse({ count: songs.length, songs });
+});
+
+function onInit(): void { mimusic.log.info('my-plugin initialized'); }
+function onDeinit(): void { mimusic.log.info('my-plugin deinitialized'); }
+function onHTTPRequest(req: HTTPRequest): HTTPResponse { return router.handle(req); }
+
+// @ts-expect-error — QuickJS 全局注入
+globalThis.onInit = onInit;
+// @ts-expect-error
+globalThis.onDeinit = onDeinit;
+// @ts-expect-error
+globalThis.onHTTPRequest = onHTTPRequest;
 ```
 
-### Step 3: 编写 main.js
-
-```javascript
-function onInit() {
-    mimusic.log.info("My Plugin started!");
-}
-
-function onDeinit() {
-    mimusic.log.info("My Plugin stopped!");
-}
-
-function onHTTPRequest(req) {
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "Hello!" }),
-        headers: { "Content-Type": "application/json" }
-    };
-}
-```
-
-### Step 4: 打包为 ZIP
+### Step 3: 构建
 
 ```bash
-cd my-plugin/
-zip -r ../my-plugin.jsplugin.zip plugin.json main.js static/
+pnpm run build
 ```
 
-### Step 5: 上传安装
+builder 会：
 
-通过 MiMusic 设置页面上传 `.jsplugin.zip` 文件，或直接将 ZIP 放入 `data/jsplugins/` 目录。
+1. 用 esbuild 把 `src/main.ts` 打包为 `build/main.js`（`format: iife`, `target: es2020`，禁止引用 Node 内置模块）；
+2. 拷贝 `static/` 到 `build/`；
+3. 计算 `entryHash = sha256(main.js)` 与 `zipHash`（规范化算法，排除 `plugin.json` 自身），写回 `build/plugin.json`；
+4. 打包为 `dist/<entryPath>.jsplugin.zip`，并生成 `dist/<entryPath>.json` 远程元数据。
 
-安装后，插件 HTTP API 可通过 `/api/v1/jsplugins/my-plugin/` 访问。
+### Step 4: 上传安装
+
+通过 MiMusic 设置页面上传 `dist/<entryPath>.jsplugin.zip`，或直接将其放入 `data/jsplugins/` 目录。
+
+安装后，插件 HTTP API 可通过 `/api/v1/jsplugins/<entryPath>/` 访问。
 
 ---
 
@@ -139,6 +152,10 @@ static/              # 静态资源目录（可选）
 | `permissions` | string[] | 是 | 权限列表（可为空数组 `[]`） |
 | `updateUrl` | string | 否 | 远程更新检查 URL |
 | `download_url` | string | 否 | 插件下载 URL |
+| `entryHash` | string | 是 | `sha256(main.js)` 64 位小写 hex，由 `@mimusic/plugin-builder` 自动生成，请勿手动编辑 |
+| `zipHash` | string | 是 | zip 内除 `plugin.json` 外所有文件的规范化 sha256 64 位小写 hex，由 `@mimusic/plugin-builder` 自动生成，请勿手动编辑 |
+
+> `entryHash` / `zipHash` 为强制校验字段，缺失或与实际内容不匹配时，安装与加载均会被后端拒绝。`zipHash` 计算范围**不含** `plugin.json` 自身，避免 hash 写回 `plugin.json` 引起的循环依赖。
 
 ### entryPath 命名规则
 
@@ -229,52 +246,49 @@ function onHTTPRequest(req) {
 
 所有 API 通过全局 `mimusic` 对象访问。
 
-### mimusic.http — HTTP 请求
+### HTTP 请求（全局 fetch）
 
-需要权限：`http`
-
-```javascript
-// GET 请求
-var resp = mimusic.http.get(url, options);
-
-// POST 请求
-var resp = mimusic.http.post(url, body, options);
-
-// 通用请求
-var resp = mimusic.http.request(method, url, options);
-```
-
-**参数说明：**
-- `url` (string) — 请求 URL
-- `body` (string) — 请求体
-- `options` (object) — 选项：`{ headers: {}, timeout: 30000 }`
-
-**返回值：**
-```javascript
-{
-    status: 200,
-    headers: { "content-type": "application/json" },
-    body: "..."
-}
-```
-
-### mimusic.timer — 定时器
-
-需要权限：`timer`
+使用标准全局 `fetch` 函数发起 HTTP 请求（由运行时 polyfill 提供，底层为同步实现并以 Promise 形式暴露）。**无需声明权限**。
 
 ```javascript
-// 延迟执行（毫秒）
-var id = mimusic.timer.setTimeout(callback, ms);
+// GET
+const resp = await fetch("https://example.com/api");
+const data = await resp.json();
 
-// 周期执行（毫秒）
-var id = mimusic.timer.setInterval(callback, ms);
-
-// 清除定时器
-mimusic.timer.clearTimeout(id);
-mimusic.timer.clearInterval(id);
+// POST
+const resp = await fetch("https://example.com/api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ hello: "world" })
+});
+const text = await resp.text();
 ```
 
-**注意：** 定时器回调在插件的 Actor 消息循环中执行，保证串行安全。
+**`Response` 对象字段：**
+- `ok` — `status >= 200 && status < 300`
+- `status` — HTTP 状态码
+- `statusText` — 状态文本
+- `headers` — 响应头对象
+- `json()` — 返回 `Promise<unknown>`，解析 JSON
+- `text()` — 返回 `Promise<string>`，原始文本
+
+> **注意**：`onHTTPRequest` 目前以同步方式调用，若要在其中使用 `fetch` 的响应，建议在 `onInit` 阶段预取并写入 `mimusic.storage`，或通过 `mimusic.comm` 异步通信。
+
+### 定时器（全局 setTimeout / setInterval）
+
+使用标准全局定时器 API（由运行时 polyfill 提供）。**无需声明权限**，插件卸载时运行时会自动清理未清除的定时器。
+
+```javascript
+// 一次性延迟
+const t = setTimeout(() => mimusic.log.info("tick"), 1000);
+clearTimeout(t);
+
+// 周期执行
+const i = setInterval(() => mimusic.log.info("heartbeat"), 60000);
+clearInterval(i);
+```
+
+**注意：** 回调在插件的 Actor 消息循环中执行，串行且与 HTTP 处理互斥；`setInterval` 的最小间隔被限制为 10ms。
 
 ### mimusic.storage — 持久化存储
 
