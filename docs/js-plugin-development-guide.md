@@ -345,16 +345,12 @@ var results = mimusic.songs.search("关键词");
 
 ### mimusic.playlists — 歌单操作
 
-需要权限：`playlists.*`
+需要权限：`playlists.read`（读取）或 `playlists.write`（修改）；或者通配符糖 `playlists.*`。
 
 ```javascript
-// 获取歌单列表
+// 需要 playlists.read
 var playlists = mimusic.playlists.list();
-
-// 根据 ID 获取歌单
 var playlist = mimusic.playlists.getById(1);
-
-// 获取歌单中的歌曲
 var songs = mimusic.playlists.getSongs(1, { limit: 50, offset: 0 });
 ```
 
@@ -398,20 +394,26 @@ mimusic.log.error("error message");
 
 ### 可用权限列表
 
+与后端 `internal/jsplugin/permissions.go` 的 `AllPermissions` 保持一致：
+
 | 权限 | 说明 |
 |------|------|
-| `http` | 发起外部 HTTP 请求 |
-| `timer` | 使用 setTimeout/setInterval |
-| `storage` | 读写持久化存储 |
-| `songs.read` | 读取歌曲信息 |
-| `songs.write` | 修改歌曲信息 |
-| `playlists.*` | 歌单所有操作（通配符） |
+| `storage` | 读写插件私有持久化存储 |
+| `songs.read` | 读取歌曲元数据 |
+| `songs.write` | 修改/写入歌曲元数据 |
+| `songs.*` | 歌曲读写通配符（一把梭糖） |
+| `playlists.read` | 读取歌单及歌单中的歌曲 |
+| `playlists.write` | 创建/修改/删除歌单及其歌曲 |
+| `playlists.*` | 歌单读写通配符（一把梭糖） |
 | `inter-plugin` | 插件间通信 |
-| `command` | 执行系统命令 |
+| `command` | 执行宿主提供的指令 |
 
-### 通配符机制
+> 注意：网络请求 (`fetch`)、定时器 (`setTimeout/setInterval`)、日志等能力**无需权限声明**，是默认宿主能力。
 
-以 `.*` 结尾的权限匹配所有子权限。例如 `playlists.*` 匹配 `playlists.list`、`playlists.getSongs` 等。
+### 通配符糖
+
+以 `.*` 结尾的权限在声明层作为一把梭糖，runner 在检查时用前缀匹配。例如声明 `playlists.*`
+既包括 `playlists.read` 也包括 `playlists.write`；而单声明 `playlists.read` 时无法调用写接口。
 
 ### 最小权限原则
 
