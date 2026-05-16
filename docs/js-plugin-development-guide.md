@@ -288,7 +288,7 @@ const i = setInterval(() => mimusic.log.info("heartbeat"), 60000);
 clearInterval(i);
 ```
 
-**注意：** 回调在插件的 Actor 消息循环中执行，串行且与 HTTP 处理互斥；`setInterval` 的最小间隔被限制为 10ms。
+**注意：** 定时器回调在独立的后台 goroutine 中执行（每 500ms 检查一次到期定时器），使用 TryLock 机制确保**不阻塞 HTTP 请求处理**。当 HTTP 请求正在处理时，定时器自动让步等待下一轮。`setInterval` 的最小间隔被限制为 10ms。
 
 ### mimusic.storage — 持久化存储
 
@@ -385,6 +385,32 @@ mimusic.log.error("error message");
 ```
 
 日志输出到服务器标准日志，带 `[plugin]` 前缀。
+
+### mimusic.plugin — 插件信息
+
+无需权限。
+
+```javascript
+// 获取插件的 JWT Token（用于访问宿主 API，如音乐文件、封面等需认证的资源）
+var token = mimusic.plugin.getToken();
+
+// 获取宿主服务的基础 URL（如 http://192.168.1.100:58091）
+var hostUrl = mimusic.plugin.getHostUrl();
+```
+
+**典型用法：构建带认证的资源 URL**
+
+```javascript
+function getMusicUrl(songId) {
+    var host = mimusic.plugin.getHostUrl();
+    var token = mimusic.plugin.getToken();
+    return host + "/music/" + encodedPath + "?access_token=" + token;
+}
+```
+
+**方法说明：**
+- `getToken()` — 返回当前有效的 JWT access_token 字符串，可用于访问宿主的受保护 API
+- `getHostUrl()` — 返回宿主服务的基础 URL，用于构建完整的 API 或资源地址
 
 ---
 
@@ -648,10 +674,11 @@ POST /api/v1/plugins/js/{id}/reload
 
 ### 性能建议
 
-1. **避免长时间阻塞** — `onHTTPRequest` 应快速返回，耗时操作使用定时器异步处理
-2. **合理使用定时器** — 避免过于频繁的 setInterval（建议最小间隔 1 秒）
+1. **避免长时间阻塞** — `onHTTPRequest` 应快速返回
+2. **合理使用定时器** — 定时器回调在独立线程中执行，不阻塞 HTTP 请求。但回调中的 `fetch` 等网络操作仍会占用 VM 锁，建议避免在单次回调中执行多个串行网络请求
 3. **缓存计算结果** — 使用 `mimusic.storage` 缓存频繁访问的数据
 4. **控制响应体大小** — 避免返回过大的 JSON 响应
+5. **定时器间隔** — 建议 `setInterval` 间隔不低于 1 秒；系统每 500ms 检查一次到期定时器
 
 ### 错误处理
 
