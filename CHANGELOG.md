@@ -1,3 +1,26 @@
+## [1.3.45] - 2026-05-20
+
+### ✨ Features
+
+- `989769c` 自动创建的歌单默认按照数字前缀排序
+- `5c47ffc` 新增js虚拟机
+- `39dab1b` 新增js api
+- `ac27696` 新增 lxmusic 插件
+
+### 🐛 Bug Fixes
+
+- `627f885` 修复关闭进程卡死问题
+
+### 🔧 Chores
+
+- `f9ddbec` release version 1.3.45
+
+## [1.3.43] - 2026-05-16
+
+### 🔧 Chores
+
+- `a9d666a` release version 1.3.43
+
 ## [1.3.42] - 2026-05-16
 
 ### ✨ Features
